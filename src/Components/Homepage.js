@@ -8,8 +8,8 @@ function Homepage() {
     next.setFullYear(next.getFullYear()+1);
     const [first, setFirst] = React.useState("");
     const [last, setLast] = React.useState("");
-    const [startDate, setStartDate] = React.useState(today.getFullYear().toString()+"-"+(today.getMonth()+1).toString()+"-"+(today.getDate()+1).toString());
-    const [endDate, setEndDate] = React.useState(today.getFullYear().toString()+"-"+(today.getMonth()+1).toString()+"-"+(today.getDate()+1).toString());
+    const [startDate, setStartDate] = React.useState(today.getFullYear().toString()+"-"+(today.getMonth()+1).toString()+"-"+(today.getDate()).toString());
+    const [endDate, setEndDate] = React.useState(today.getFullYear().toString()+"-"+(today.getMonth()+1).toString()+"-"+(today.getDate()).toString());
 
     function handleChange(func, e) {
         func(e.target.value);
@@ -33,13 +33,13 @@ function Homepage() {
 
     const dateOptions = Array.from({ length: 365 }, (_, index) => {
         const date = new Date(today);
-        date.setDate(today.getDate() + index);
+        date.setDate(today.getDate() + index-1);
         return date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
       });
 
       const dateOptions2 = Array.from({ length: 365 }, (_, index) => {
         const date = new Date(today);
-        date.setDate(today.getDate() + index);
+        date.setDate(today.getDate() + index-1);
         return date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
       });
     
