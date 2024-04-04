@@ -1,14 +1,14 @@
 import React from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
-function Homepage() {
+function HomepageSave() {
+    let today = new Date();
+    let next = new Date(today);
+    next.setFullYear(next.getFullYear()+1);
     const [first, setFirst] = React.useState("");
     const [last, setLast] = React.useState("");
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const [selectedOption, setSelectedOption] = React.useState('');
-    const [bio, setBio] = React.useState("")
-
+    
     const SelectWithCustomInput = () => {
         const [options, setOptions] = React.useState([]);
         const [customInput, setCustomInput] = React.useState('');
@@ -46,11 +46,8 @@ function Homepage() {
             }
         };
 
-        
-
         return (
             <div className='item'>
-                <p>Group: </p>
                 <select value={selectedOption} onChange={handleSelectChange}>
                     <option value="">Select an option...</option>
                     {options.map((option, index) => (
@@ -77,12 +74,16 @@ function Homepage() {
     }
 
     function clickHandler() {
-
+        const startDate2 = new Date(startDate);
+        const endDate2 = new Date(endDate);
         if (!first) {
             alert("Please fill out your first name")
         }
         else if (!last) {
             alert("Please fill out your last name")
+        }
+        else if (startDate2 > endDate2) {
+            alert("Ending Date cannot be earlier than Starting Date");
         }
         else {
             const existingReservations = JSON.parse(localStorage.getItem('reservations')) || [];
@@ -90,7 +91,8 @@ function Homepage() {
             const isDuplicate = existingReservations.some(reservation => 
                 reservation.firstName === first &&
                 reservation.lastName === last &&
-                reservation.date === selectedDate &&
+                reservation.startingDate === startDate &&
+                reservation.endingDate === endDate &&
                 reservation.group === selectedOption
             );
 
@@ -100,9 +102,9 @@ function Homepage() {
                 const reservation = {
                     firstName: first,
                     lastName: last,
-                    date: selectedDate,
-                    group:selectedOption,
-                    bio: bio
+                    startingDate: startDate,
+                    endingDate: endDate,
+                    group:selectedOption
                 };
                 const existingReservations = JSON.parse(localStorage.getItem('reservations')) || [];
                 // Add the new reservation
@@ -113,39 +115,39 @@ function Homepage() {
             }
         }
     }
-    function handleDateChange(date) {
-        setSelectedDate(date);
-    }
+
     
     return (<div className="homepage">
-        <h1>Sign up for a study group!</h1>
+        <h1>Sign up for a study/interest group!</h1>
         <div className='item'>
-            <p>First Name: </p>
             <input value = {first} onChange ={(e) => handleChange(setFirst,e)} required/>
-            
+            <p>First Name</p>
         </div>
         <div className = "item">
-            <p>Last Name: </p>
             <input value = {last} onChange = {(e) => handleChange(setLast, e)} required/>
+            <p>Last Name</p>
         </div>
-        <div className="item">
-            <p>Availability Date:</p>
-            <DatePicker
-                selected={selectedDate}
-                onChange={handleDateChange}
-                inline
-            />
-            
+        <div className = "item">
+            <select value = {startDate} onChange = {(e)=>handleChange(setStartDate, e)} required>
+                {dateOptions.map((date, index)=>(
+                    <option key={index} value = {date}>{date}</option>
+                ))}
+            </select>
+            <p>Starting Date</p>
+        </div>
+        <div className = "item">
+        <select value = {endDate} onChange = {(e)=>handleChange(setEndDate, e)} required>
+                {dateOptions2.map((date, index)=>(
+                    <option key={index} value = {date}>{date}</option>
+                ))}
+            </select>
+            <p>Ending Date</p>
         </div>
         <SelectWithCustomInput/>
-        <div className='item'>
-            <p>Describe yourself, your question with the topic, what you want to study, etc:</p>
-            <textarea value = {bio} onChange = {(e) => handleChange(setBio, e)} required/>
-        </div>
         <div className='item'>
             <button onClick = {clickHandler}>Submit</button>
         </div>
     </div>)
 }
 
-export default Homepage;
+export default HomepageSave;

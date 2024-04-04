@@ -1,12 +1,7 @@
-.App {
-  text-align: center;
-}
-
 .nav {
   text-align: center;
   background-color: salmon;
   padding: 20px;
-  margin: 10px;
 }
 
 .nav-item {
@@ -18,25 +13,54 @@
   text-decoration: none;
 }
 
-.contact {
-  margin:20px;
-}
-
-.reservation {
-  margin: 20px;
-}
 
 .homepage {
   margin: 20px;
 }
 
-.aboutme {
-  margin:20px;
-}
 
 .item {
   display: grid;
   grid-template-columns:max-content;
   padding: 10px;
+  margin: 20px;
+}
+
+.group {
+  margin: 20px;
+}
+
+.reservationGroup {
+  margin: 20px;
+}
+
+.res-item {
+  margin: 10px; /* Adjust margin between each res-item */
+  border: 1px solid black; /* Add border to create the smaller box */
+  padding: 10px;
+  width: 300px;
+  display: inline-block;
+  vertical-align: top;
+  word-wrap: break-word;
+}
+.date {
+  margin: 20px;
+}
+
+.reservationFilter {
+  margin: 20px;
+}
+
+.name {
+  margin: 20px;
+}
+
+.key {
   margin: 10px;
+  border: 1px solid black; /* Add border to create the smaller box */
+  padding: 10px;
+  width: 300px;
+  display: inline-block;
+  vertical-align: top;
+  word-wrap: break-word;
 }

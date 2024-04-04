@@ -1,32 +1,23 @@
 import React from 'react';
-import { reservation } from './Homepage';
 
 function Reservation() {
-    const reservations = [];
+    const [reservations, setReservations] = React.useState([]);
     const [searchTerm, setSearchTerm] = React.useState("");
 
-    for (let lastName in reservation) {
-        const firstName = reservation[lastName].firstName;
-        const startingDate = reservation[lastName].startingDate;
-        const endingDate = reservation[lastName].endingDate;
-
-        reservations.push(
-            <div className = 'res-item' key={lastName}>
-                <h2>Last Name: {lastName}</h2>
-                <p>First Name: {firstName}</p>
-                <p>Starting Date: {startingDate}</p>
-                <p>Ending Date: {endingDate}</p>
-            </div>
-        );
-    }
+    React.useEffect(() => {
+        // Retrieve reservations from localStorage
+        const storedReservations = JSON.parse(localStorage.getItem('reservations')) || [];
+        setReservations(storedReservations);
+    }, []);
 
     function handleSearch(e) {
         setSearchTerm(e.target.value);
     }
 
     function handleClick() {
-        if (searchTerm in reservation) { 
-            alert(`${searchTerm}, you made a Reservation from ${reservation[searchTerm]['startingDate']} to ${reservation[searchTerm]['endingDate']}`)
+        const foundReservation = reservations.find(reservation => reservation.lastName === searchTerm);
+        if (foundReservation) {
+            alert(`${searchTerm}, you made a Reservation from ${foundReservation.startingDate} to ${foundReservation.endingDate}`)
         } else {
             alert("You didn't have a reservation yet, make one now!")
         }
@@ -41,9 +32,17 @@ function Reservation() {
                 value={searchTerm} 
                 onChange={handleSearch}/>
             <button onClick={handleClick}>Search</button>
-            {reservations}
+            {reservations.map((reservation, index) => (
+                <div className='res-item' key={index}>
+                    <h2>Last Name: {reservation.lastName}</h2>
+                    <p>First Name: {reservation.firstName}</p>
+                    <p>Starting Date: {reservation.startingDate}</p>
+                    <p>Ending Date: {reservation.endingDate}</p>
+                    <p>Topic: {reservation.group}</p>
+                </div>
+            ))}
         </div>
-        );
+    );
 }
 
 export default Reservation;
