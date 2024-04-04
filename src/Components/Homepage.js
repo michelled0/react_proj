@@ -83,6 +83,10 @@ function Homepage() {
         }
         else if (!last) {
             alert("Please fill out your last name")
+        } else if(!selectedDate) {
+            alert("Please fill out your available date")
+        } else if (!selectedOption) {
+            alert("Please select or create your choice for group")
         }
         else {
             const existingReservations = JSON.parse(localStorage.getItem('reservations')) || [];
