@@ -7,7 +7,6 @@ function ReservationFilter() {
     const [showReservations, setShowReservations] = useState(false);
 
     useEffect(() => {
-        // Retrieve reservations from localStorage
         const storedReservations = JSON.parse(localStorage.getItem('reservations')) || [];
         setFilteredReservations(storedReservations);
     }, []);

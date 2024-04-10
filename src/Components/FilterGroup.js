@@ -20,10 +20,10 @@ function FilterGroup() {
                 const groupElement = document.getElementById(targetGroup.group);
                 if (groupElement) {
                     groupElement.scrollIntoView({ behavior: "smooth" });
-                    groupElement.style.backgroundColor = "yellow"; // Highlight the target group
+                    groupElement.style.backgroundColor = "yellow";
                     setTimeout(() => {
-                        groupElement.style.backgroundColor = ""; // Remove highlight after some time
-                    }, 3000); // Highlight duration in milliseconds (3 seconds in this example)
+                        groupElement.style.backgroundColor = "";
+                    }, 3000);
                 }
             } else {
                 alert("Group not found.");

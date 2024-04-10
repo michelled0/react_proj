@@ -90,7 +90,7 @@ function Homepage() {
         }
         else {
             const existingReservations = JSON.parse(localStorage.getItem('reservations')) || [];
-            // Check if a reservation with the same details already exists
+            // Check if a reservation already exists
             const isDuplicate = existingReservations.some(reservation => 
                 reservation.firstName === first &&
                 reservation.lastName === last &&
@@ -109,7 +109,7 @@ function Homepage() {
                     bio: bio
                 };
                 const existingReservations = JSON.parse(localStorage.getItem('reservations')) || [];
-                // Add the new reservation
+                
                 const updatedReservations = [...existingReservations, reservation];
                 // Store the updated reservations back to localStorage
                 localStorage.setItem('reservations', JSON.stringify(updatedReservations));
